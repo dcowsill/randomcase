@@ -1,15 +1,14 @@
 import sublime
 import sublime_plugin
 
-from random import random
-from math import floor
+from random import randint
 
 class RandomCase(sublime_plugin.TextCommand):
 	def random_case(self, text):
 		output = ""
 
 		for c in text.upper():
-			if(floor(random() * 100) % 2) == 0:
+			if randint(0,1):
 				output += c.lower()
 			else:
 				output += c
