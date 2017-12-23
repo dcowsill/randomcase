@@ -1,0 +1,14 @@
+{
+		"id": "edit",
+		"children":
+		[
+		{
+			"id": "convert_case",
+			"children":
+			[
+				{ "command": "random_case", "caption": "RaNdoM CASE" }
+			]
+		}
+		]
+	},
+]
