@@ -3,15 +3,16 @@ import sublime_plugin
 
 from random import randint
 
-class RandomCase(sublime_plugin.TextCommand):
+class RandomCaseCommand(sublime_plugin.TextCommand):
 	def random_case(self, text):
 		output = ""
 
-		for c in text.upper():
-			if randint(0,1):
-				output += c.lower()
-			else:
-				output += c
+		for c in text:
+			swapped = c.upper() if randint(0,1) else c.lower()
+
+			# Some characters change length when their case changes
+			# (e.g. "ß".upper() == "SS"), so leave those alone
+			output += swapped if len(swapped) == 1 else c
 
 		return(output)
 
@@ -19,11 +20,5 @@ class RandomCase(sublime_plugin.TextCommand):
 		for s in self.view.sel():
 			region = s if s else self.view.word(s)
 			text = self.view.substr(region)
-			
-			# Preserve leading and trailing whitespace
-			leading = text[:len(text)-len(text.lstrip())]
-			trailing = text[len(text.rstrip()):]
 
-			newtext = leading + self.random_case(text) + trailing
-
-			self.view.replace(edit, region, newtext)
+			self.view.replace(edit, region, self.random_case(text))
