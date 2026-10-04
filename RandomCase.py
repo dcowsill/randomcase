@@ -17,7 +17,7 @@ class RandomCase(sublime_plugin.TextCommand):
 
 	def run(self, edit):
 		for s in self.view.sel():
-			region = s if s else view.word(s)
+			region = s if s else self.view.word(s)
 			text = self.view.substr(region)
 			
 			# Preserve leading and trailing whitespace
